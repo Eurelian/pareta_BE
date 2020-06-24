@@ -1,0 +1,20 @@
+const Parent = require("../models/parent");
+const Article = require("../models/article");
+
+//Get all articles
+exports.all_articles = async (req, res) => {
+	let allArticles = await Article.find({});
+	res.json(allArticles);
+};
+
+//Favorite an article
+exports.favorite_article = async (req, res) => {
+	const { article_name } = req.params;
+	const { _id } = req.user;
+	const { id } = req.body;
+	const user = await Parent.findById(_id);
+	const article = await Article.findById(id);
+	user.articles_favorite.push(article._id);
+	await user.save();
+	res.json(`${article_name} added to your favorites list`);
+};
