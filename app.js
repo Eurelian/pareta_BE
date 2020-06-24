@@ -5,14 +5,16 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+let cors = require("cors");
+var app = express();
+
+//ROUTES IMPORT
 let registrationRouter = require("./routes/registration");
 let loginRouter = require("./routes/login");
 let articlesRouter = require("./routes/articles");
 let dashboardRouter = require("./routes/dashboard");
 let eventsRouter = require("./routes/events");
-
-let cors = require("cors");
-var app = express();
+let messageRouter = require("./routes/messages");
 
 require("./db");
 
@@ -23,6 +25,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//ROUTES
+app.use("/messages", messageRouter);
 app.use("/events", eventsRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/articles", articlesRouter);

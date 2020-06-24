@@ -1,6 +1,7 @@
 const Parent = require("../models/parent");
 const Article = require("../models/article");
 const Event = require("../models/event");
+const Message = require("../models/message");
 const schema = require("../utils/registerValidate");
 const bcrypt = require("bcrypt");
 const validation = require("../utils/loginValidate");
@@ -179,7 +180,34 @@ exports.parent_events_subscribed = async (req, res) => {
 //CREATED EVENTS lISTING
 exports.parent_events_created = async (req, res) => {
 	const { _id } = req.user;
-
 	const events = await Parent.findById(_id).populate("events_created");
 	res.send(events);
+};
+
+//#####
+//PARENT MESSAGE MANAGEMENT
+//#####
+
+//SEE ALL USERS THAT SENT MESSAGES TO USER
+
+//SEE ALL MESSSAGES SENT FROM A SPECIFIC USER
+exports.parent_messages_received = async (req, res) => {
+	const { _id } = req.user;
+	const { id } = req.body;
+	const messages = await Parent.findById(_id).populate("messages_received");
+	const received = messages.messages_received.filter((m) => m.sender == id);
+
+	res.json(received);
+	// res.send(users);
+};
+
+//SEE ALL MESSSAGES SENT TO A SPECIFIC USER
+
+exports.parent_messages_sent = async (req, res) => {
+	const { _id } = req.user;
+	const { id } = req.body;
+	const messages = await Parent.findById(_id).populate("messages_sent");
+	const sent = messages.messages_sent.filter((m) => m.user == id);
+	res.json(sent);
+	// res.send(users);
 };

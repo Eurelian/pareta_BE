@@ -47,4 +47,18 @@ router.get(
 	parentController.parent_events_created
 );
 
+// USER MESSAGING INTERACTIONS
+
+router.get(
+	"/messages/received",
+	authenticator,
+	parentController.parent_messages_received
+);
+
+router.get(
+	"/messages/sent",
+	authenticator,
+	parentController.parent_messages_sent
+);
+
 module.exports = router;

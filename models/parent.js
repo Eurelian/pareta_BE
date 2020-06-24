@@ -10,8 +10,9 @@ const parentSchema = new Schema({
 	articles_favorite: [{ type: Schema.Types.ObjectId, ref: "Article" }],
 	events_created: [{ type: Schema.Types.ObjectId, ref: "Event" }],
 	events_subscribed: [{ type: Schema.Types.ObjectId, ref: "Event" }],
-	messages_sent: { type: Array },
-	messages_received: { type: Array },
+	messages_sent: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+	messages_received: [{ type: Schema.Types.ObjectId, ref: "Message" }],
+	messages_from: [{ type: Schema.Types.ObjectId, ref: "Parent" }],
 });
 
 module.exports = mongoose.model("Parent", parentSchema);
