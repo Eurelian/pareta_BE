@@ -14,10 +14,10 @@ exports.parent_register = async (req, res) => {
 	const { name, email, password } = req.body;
 
 	const { error } = schema.validate(req.body);
-	if (error) res.status(403).send(error.details[0].message);
+	if (error) res.status(403).json(error.details[0].message);
 
 	const emailExist = await Parent.findOne({ email: email });
-	if (emailExist) return res.status(400).send("E-mail address already exists.");
+	if (emailExist) return res.status(400).json("E-mail address already exists.");
 
 	const saltRounds = 10;
 	const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -32,7 +32,7 @@ exports.parent_register = async (req, res) => {
 		const savedParent = await parent.save();
 		res.send(savedParent);
 	} catch (err) {
-		res.status(400).send(err);
+		res.status(400).json("Invalid Request");
 	}
 };
 
