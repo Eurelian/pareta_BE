@@ -14,10 +14,10 @@ exports.parent_register = async (req, res) => {
 	const { name, email, password } = req.body;
 
 	const { error } = schema.validate(req.body);
-	if (error) res.status(403).json(error.details[0].message);
+	if (error) res.send(error.details[0].message);
 
 	const emailExist = await Parent.findOne({ email: email });
-	if (emailExist) return res.status(400).json("E-mail address already exists.");
+	if (emailExist) return res.status(400).send("E-mail address already exists.");
 
 	const saltRounds = 10;
 	const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -32,7 +32,7 @@ exports.parent_register = async (req, res) => {
 		const savedParent = await parent.save();
 		res.send(savedParent);
 	} catch (err) {
-		res.status(400).json("Invalid Request");
+		res.status(400).send("Invalid Request");
 	}
 };
 
@@ -62,7 +62,7 @@ exports.parent_login = async (req, res) => {
 exports.parent_dashboard = async (req, res) => {
 	const { _id } = req.user;
 	const data = await Parent.findById(_id);
-	res.json(data);
+	res.send(data);
 };
 
 //#####
@@ -136,25 +136,28 @@ exports.parent_favorite_article_remove = async (req, res) => {
 exports.parent_event_create = async (req, res) => {
 	const { _id } = req.user;
 	const { name, geometry, date, age_group, description, size } = req.body;
-
 	const { error } = eventValidation.validate(req.body);
 	if (error) res.status(403).send(error.details[0].message);
 
-	const user = await Parent.findById(_id);
+	try {
+		const user = await Parent.findById(_id);
 
-	const event = new Event({
-		name: name,
-		geometry: geometry,
-		date: date,
-		age_group: age_group,
-		description: description,
-		size: size,
-		organizer: user._id,
-	});
-	user.events_created.push(event._id);
-	await user.save();
-	await event.save();
-	res.json(user);
+		const event = await new Event({
+			name: name,
+			geometry: geometry,
+			date: date,
+			age_group: age_group,
+			description: description,
+			size: size,
+			organizer: user._id,
+		});
+		user.events_created.push(event._id);
+		await user.save();
+		await event.save();
+		return res.json(event);
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 //UNSUBSCRIBE FROM EVENT
