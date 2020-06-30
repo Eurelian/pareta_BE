@@ -34,9 +34,8 @@ exports.one_article = async (req, res) => {
 
 //Favorite an article
 exports.favorite_article = async (req, res) => {
-	const { article_name } = req.params;
+	const { id } = req.params;
 	const { _id } = req.user;
-	const { id } = req.body;
 	const user = await Parent.findById(_id);
 	const article = await Article.findById(id);
 	user.articles_favorite.push(article._id);

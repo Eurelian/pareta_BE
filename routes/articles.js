@@ -9,10 +9,6 @@ router.get("/preview", authenticator, articleController.preview_articles);
 
 router.get("/:id", authenticator, articleController.one_article);
 
-router.post(
-	"/:article_name",
-	authenticator,
-	articleController.favorite_article
-);
+router.post("/:id", authenticator, articleController.favorite_article);
 
 module.exports = router;
