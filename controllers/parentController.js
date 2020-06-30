@@ -61,7 +61,15 @@ exports.parent_login = async (req, res) => {
 //PARENT DATA FETCHING
 exports.parent_dashboard = async (req, res) => {
 	const { _id } = req.user;
-	const data = await Parent.findById(_id);
+	const data = await Parent.findById(_id)
+		.populate("events-subscribed")
+		.populate("events_created")
+		.populate("articles_created")
+		.populate("articles_favorite")
+		.populate("messages_from")
+		.populate("messages_received")
+		.populate("messages_sent")
+		.popuplate("parents_favorite");
 	res.send(data);
 };
 
