@@ -62,15 +62,15 @@ exports.parent_login = async (req, res) => {
 exports.parent_dashboard = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const data = await Parent.findById(_id)
-			.populate("events_subscribed")
-			.populate("events_created")
-			.populate("articles_created")
-			.populate("articles_favorite")
-			.populate("messages_from")
-			.populate("messages_received")
-			.populate("messages_sent")
-			.popuplate("parents_favorite");
+		const data = await Parent.findById(_id);
+		// .populate("events_subscribed")
+		// .populate("events_created")
+		// .populate("articles_created")
+		// .populate("articles_favorite")
+		// .populate("messages_from")
+		// .populate("messages_received")
+		// .populate("messages_sent")
+		// .popuplate("parents_favorite");
 		await res.send(data);
 	} catch (err) {
 		res.send(err);
