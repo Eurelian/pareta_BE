@@ -21,6 +21,17 @@ exports.preview_articles = async (req, res) => {
 	}
 };
 
+//Get one article
+exports.one_article = async (req, res) => {
+	try {
+		const { id } = req.params;
+		let article = await Article.findById(id).populate("author");
+		res.send(article);
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //Favorite an article
 exports.favorite_article = async (req, res) => {
 	const { article_name } = req.params;
