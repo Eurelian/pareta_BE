@@ -18,12 +18,16 @@ exports.event_one = async (req, res) => {
 exports.events_subscribe = async (req, res) => {
 	const { _id } = req.user;
 	const { id } = req.body;
-	const user = await Parent.findById(_id);
-	const event = await Event.findById(id);
+	try {
+		const user = await Parent.findById(_id);
+		const event = await Event.findById(id);
 
-	event.attending.push(user._id);
-	user.events_subscribed.push(event._id);
-	await event.save();
-	await user.save();
-	res.send(`${user.name} has subscribed to ${event.name}`);
+		event.attending.push(user._id);
+		user.events_subscribed.push(event._id);
+		await event.save();
+		await user.save();
+		res.send(`${user.name} has subscribed to ${event.name}`);
+	} catch (err) {
+		res.send(err);
+	}
 };
