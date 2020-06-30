@@ -62,7 +62,9 @@ exports.parent_login = async (req, res) => {
 exports.parent_dashboard = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const data = await Parent.findById(_id);
+		const data = await Parent.findById(_id)
+			.populate("events_created")
+			.populate("events_subscribed");
 		// .populate("events_subscribed")
 		// .populate("events_created")
 		// .populate("articles_created")
