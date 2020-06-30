@@ -22,9 +22,11 @@ const EventSchema = new Schema({
 	},
 
 	geometry: {
-		type: String,
-		enum: "Point",
-		// required: true,
+		type: {
+			type: String,
+			enum: ["Point"],
+			required: true,
+		},
 		coordinates: {
 			type: [Number],
 			index: "2dsphere",
