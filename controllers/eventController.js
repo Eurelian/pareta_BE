@@ -3,7 +3,9 @@ const Parent = require("../models/parent");
 
 //Get All EVENTS
 exports.events_all = async (req, res) => {
-	let allEvents = await Event.find({}).populate("organizer");
+	let allEvents = await Event.find({})
+		.populate("organizer")
+		.populate("attending");
 	res.json(allEvents);
 };
 
