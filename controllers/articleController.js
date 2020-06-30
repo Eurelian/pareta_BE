@@ -14,7 +14,7 @@ exports.all_articles = async (req, res) => {
 //Get preview articles
 exports.preview_articles = async (req, res) => {
 	try {
-		let allArticles = await Article.find({}).populate("author").limit(7);
+		let allArticles = await Article.find({}).populate("author");
 		res.send(allArticles);
 	} catch (err) {
 		res.send(err);
