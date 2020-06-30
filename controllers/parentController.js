@@ -63,7 +63,7 @@ exports.parent_dashboard = async (req, res) => {
 	const { _id } = req.user;
 	try {
 		const data = await Parent.findById(_id)
-			.populate("events-subscribed")
+			.populate("events_subscribed")
 			.populate("events_created")
 			.populate("articles_created")
 			.populate("articles_favorite")
