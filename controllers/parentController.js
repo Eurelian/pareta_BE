@@ -136,14 +136,18 @@ exports.parent_favorite_article_list = async (req, res) => {
 
 //PARENT DELETE FAVORITE FROM LIST
 exports.parent_favorite_article_remove = async (req, res) => {
-	const { _id } = req.user;
-	const { id } = req.body;
+	try {
+		const { _id } = req.user;
+		const { id } = req.body;
 
-	await Parent.findById(_id).updateOne({
-		$pullAll: { articles_favorite: [id] },
-	});
+		await Parent.findById(_id).updateOne({
+			$pullAll: { articles_favorite: [id] },
+		});
 
-	res.json("Article Removed from Favorites");
+		res.send("Article Removed from Favorites");
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //#####

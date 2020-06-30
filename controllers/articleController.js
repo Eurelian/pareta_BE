@@ -34,11 +34,15 @@ exports.one_article = async (req, res) => {
 
 //Favorite an article
 exports.favorite_article = async (req, res) => {
-	const { id } = req.params;
-	const { _id } = req.user;
-	const user = await Parent.findById(_id);
-	const article = await Article.findById(id);
-	user.articles_favorite.push(article._id);
-	await user.save();
-	res.json(`${article_name} added to your favorites list`);
+	try {
+		const { id } = req.params;
+		const { _id } = req.user;
+		const user = await Parent.findById(_id);
+		const article = await Article.findById(id);
+		user.articles_favorite.push(article._id);
+		await user.save();
+		res.send(`${article_name} added to your favorites list`);
+	} catch (err) {
+		res.send(err);
+	}
 };
