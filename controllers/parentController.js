@@ -141,7 +141,6 @@ exports.parent_event_create = async (req, res) => {
 
 	try {
 		const user = await Parent.findById(_id);
-
 		const event = await new Event({
 			name: name,
 			geometry: geometry,
@@ -154,7 +153,7 @@ exports.parent_event_create = async (req, res) => {
 		user.events_created.push(event._id);
 		await user.save();
 		await event.save();
-		return res.json(event);
+		res.send(event);
 	} catch (err) {
 		console.log(err);
 	}
