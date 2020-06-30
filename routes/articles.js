@@ -5,9 +5,9 @@ const articleController = require("../controllers/articleController");
 
 router.get("/", authenticator, articleController.all_articles);
 
-router.get("/:id", authenticator, articleController.one_article);
-
 router.get("/preview", authenticator, articleController.preview_articles);
+
+router.get("/:id", authenticator, articleController.one_article);
 
 router.post(
 	"/:article_name",
