@@ -11,6 +11,16 @@ exports.all_articles = async (req, res) => {
 	}
 };
 
+//Get preview articles
+exports.preview_articles = async (req, res) => {
+	try {
+		let allArticles = await Article.find({}).populate("author").limit(7);
+		res.send(allArticles);
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //Favorite an article
 exports.favorite_article = async (req, res) => {
 	const { article_name } = req.params;
