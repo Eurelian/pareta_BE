@@ -92,19 +92,23 @@ exports.parent_created_articles = async (req, res) => {
 
 //PARENT ARTICLE_CREATE
 exports.parent_article_post = async (req, res) => {
-	const { title, text } = req.body;
-	const { _id } = req.user;
-	let user = await Parent.findById(_id);
-	const post = new Article({
-		title: title,
-		text: text,
-		author: _id,
-	});
+	try {
+		const { title, text } = req.body;
+		const { _id } = req.user;
+		let user = await Parent.findById(_id);
+		const post = new Article({
+			title: title,
+			text: text,
+			author: _id,
+		});
 
-	user.articles_created.push(post._id);
-	await user.save();
-	await post.save();
-	res.json(user);
+		user.articles_created.push(post._id);
+		await user.save();
+		await post.save();
+		res.send("Article succesfully submitted");
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //PARENT Created_ARTICLE_DELETE

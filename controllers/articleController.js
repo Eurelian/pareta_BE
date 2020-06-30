@@ -3,8 +3,12 @@ const Article = require("../models/article");
 
 //Get all articles
 exports.all_articles = async (req, res) => {
-	let allArticles = await Article.find({});
-	res.json(allArticles);
+	try {
+		let allArticles = await Article.find({}).populate("author");
+		res.send(allArticles);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //Favorite an article
