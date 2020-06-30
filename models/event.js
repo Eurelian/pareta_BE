@@ -23,7 +23,7 @@ const EventSchema = new Schema({
 
 	geometry: {
 		type: String,
-		enum: ["Point"],
+		enum: "Point",
 		// required: true,
 		coordinates: {
 			type: [Number],
