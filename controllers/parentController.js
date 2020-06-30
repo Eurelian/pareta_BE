@@ -155,7 +155,7 @@ exports.parent_event_create = async (req, res) => {
 		await event.save();
 		res.send(event);
 	} catch (err) {
-		console.log(err);
+		res.send(err);
 	}
 };
 
