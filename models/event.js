@@ -1,18 +1,17 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
-const GeoSchema = new Schema({
-	type: {
-		type: String,
-		enum: ["Point"],
-		// required: true,
-	},
-	coordinates: {
-		type: [Number],
-		index: "2dsphere",
-	},
-});
+// const GeoSchema = new Schema({
+// 	type: {
+// 		type: String,
+// 		enum: ["Point"],
+// 		// required: true,
+// 	},
+// 	coordinates: {
+// 		type: [Number],
+// 		index: "2dsphere",
+// 	},
+// });
 
 const EventSchema = new Schema({
 	name: {
@@ -22,7 +21,16 @@ const EventSchema = new Schema({
 		trim: true,
 	},
 
-	geometry: GeoSchema,
+	geometry: {
+		type: String,
+		enum: ["Point"],
+		// required: true,
+		coordinates: {
+			type: [Number],
+			index: "2dsphere",
+		},
+	},
+
 	createdAt: {
 		type: Date,
 		default: Date.now,
