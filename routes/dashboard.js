@@ -28,7 +28,7 @@ router.delete(
 );
 
 //User Events Interactions
-router.post("/events", authenticator, parentController.parent_event_create);
+router.post("/events", parentController.parent_event_create);
 
 router.delete(
 	"/events",
