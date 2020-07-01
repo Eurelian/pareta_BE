@@ -128,9 +128,13 @@ exports.parent_article_delete = async (req, res) => {
 
 //PARENT FAVORITE ARTICLES LIST
 exports.parent_favorite_article_list = async (req, res) => {
-	const { _id } = req.user;
-	const parent = await Parent.findById(_id, "articles_favorite").populate();
-	res.json(parent);
+	try {
+		const { _id } = req.user;
+		const parent = await Parent.findById(_id, "articles_favorite").populate();
+		res.send(parent);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //PARENT DELETE FAVORITE FROM LIST
