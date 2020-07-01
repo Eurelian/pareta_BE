@@ -65,8 +65,6 @@ exports.parent_dashboard = async (req, res) => {
 		const data = await Parent.findById(_id)
 			.populate("events_created")
 			.populate("events_subscribed");
-		// .populate("events_subscribed")
-		// .populate("events_created")
 		// .populate("articles_created")
 		// .populate("articles_favorite")
 		// .populate("messages_from")
@@ -90,6 +88,7 @@ exports.parent_created_articles = async (req, res) => {
 	res.json(parent);
 };
 
+//implemented
 //PARENT ARTICLE_CREATE
 exports.parent_article_post = async (req, res) => {
 	try {
@@ -130,7 +129,7 @@ exports.parent_article_delete = async (req, res) => {
 //PARENT FAVORITE ARTICLES LIST
 exports.parent_favorite_article_list = async (req, res) => {
 	const { _id } = req.user;
-	const parent = await Parent.findById(_id).populate("articles_favorite");
+	const parent = await Parent.findById(_id, "articles_favorite").populate();
 	res.json(parent);
 };
 
