@@ -61,6 +61,12 @@ router.post(
 );
 
 router.get(
+	"/favorite-parents",
+	authenticator,
+	parentController.favorite_parents
+);
+
+router.get(
 	"/messages/received",
 	authenticator,
 	parentController.parent_messages_received

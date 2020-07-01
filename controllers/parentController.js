@@ -97,6 +97,20 @@ exports.favorite_parent = async (req, res) => {
 	}
 };
 
+//GET FAVORITE PARENTS
+
+exports.favorite_parents = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const data = await Parent.findById(_id, "parents_favorite").populate(
+			"parents_favorite"
+		);
+		await res.send(data);
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //#####
 //ARTICLE CREATION MANAGEMENT
 //#####

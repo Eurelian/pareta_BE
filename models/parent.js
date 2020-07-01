@@ -5,7 +5,7 @@ const parentSchema = new Schema({
 	name: { type: String, min: 5, max: 255, require },
 	email: { type: String, min: 5, max: 255, require },
 	password: { type: String, min: 5, max: 255, require },
-	parents_favorite: { type: Array },
+	parents_favorite: [{ type: Schema.Types.ObjectId, ref: "Parent" }],
 	articles_created: [{ type: Schema.Types.ObjectId, ref: "Article" }],
 	articles_favorite: [{ type: Schema.Types.ObjectId, ref: "Article" }],
 	events_created: [{ type: Schema.Types.ObjectId, ref: "Event" }],
