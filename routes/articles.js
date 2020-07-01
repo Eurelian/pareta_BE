@@ -12,6 +12,7 @@ router.get("/preview", authenticator, articleController.preview_articles);
 //done
 router.get("/:id", authenticator, articleController.one_article);
 
+//done
 router.post("/favorite", authenticator, articleController.favorite_article);
 
 module.exports = router;

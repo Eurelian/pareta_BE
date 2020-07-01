@@ -83,9 +83,15 @@ exports.parent_dashboard = async (req, res) => {
 
 //PARENT CREATED_ARTICLES_GET
 exports.parent_created_articles = async (req, res) => {
-	const { _id } = req.user;
-	const parent = await Parent.findById(_id).populate("articles_created");
-	res.json(parent);
+	try {
+		const { _id } = req.user;
+		const parent = await Parent.findById(_id, "articles_created").populate(
+			"articles_created"
+		);
+		res.send(parent);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //implemented
