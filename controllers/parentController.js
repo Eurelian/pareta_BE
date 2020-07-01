@@ -130,9 +130,10 @@ exports.parent_article_delete = async (req, res) => {
 exports.parent_favorite_article_list = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const parent = await Parent.findById(_id, "articles_favorite").populate(
-			"articles_favorite"
-		);
+		const parent = await Parent.findById(_id, "articles_favorite").populate({
+			path: "articles_favorite",
+			populate: { path: "author" },
+		});
 		res.send(parent);
 	} catch (err) {
 		res.send(err);
