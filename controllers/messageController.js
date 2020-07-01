@@ -19,6 +19,7 @@ exports.message_sent = async (req, res) => {
 	user.messages_received.push(message._id);
 	if (!user.messages_from.includes(sender._id))
 		user.messages_from.push(sender._id);
+
 	sender.messages_sent.push(message._id);
 	await message.save();
 	await user.save();

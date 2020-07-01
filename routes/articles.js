@@ -3,16 +3,16 @@ const router = express.Router();
 const authenticator = require("../utils/verifyToken");
 const articleController = require("../controllers/articleController");
 
-//done
+//implemented
 router.get("/", authenticator, articleController.all_articles);
 
-//done
+//implemented
 router.get("/preview", authenticator, articleController.preview_articles);
 
-//done
+//implemented
 router.get("/:id", authenticator, articleController.one_article);
 
-//done
+//implemented
 router.post("/favorite", authenticator, articleController.favorite_article);
 
 module.exports = router;

@@ -5,22 +5,25 @@ const authenticator = require("../utils/verifyToken");
 const parentController = require("../controllers/parentController");
 
 //Get User Data
+//implemented
 router.get("/", authenticator, parentController.parent_dashboard);
 
 //User post interactions
+//implemented
 router.post("/posts", authenticator, parentController.parent_article_post);
 
 router.delete("/posts", authenticator, parentController.parent_article_delete);
-
+//implemented
 router.get("/posts", authenticator, parentController.parent_created_articles);
 
 //User Favorite Posts Interactions
+//implemented
 router.get(
 	"/posts/favorite",
 	authenticator,
 	parentController.parent_favorite_article_list
 );
-
+//implemented
 router.delete(
 	"/posts/favorite",
 	authenticator,
@@ -28,6 +31,7 @@ router.delete(
 );
 
 //User Events Interactions
+//implemented
 router.post("/events", authenticator, parentController.parent_event_create);
 
 router.delete(
@@ -36,6 +40,7 @@ router.delete(
 	parentController.parent_event_unsubscribe
 );
 
+//implemented
 router.get(
 	"/events/subscribed",
 	authenticator,
@@ -48,6 +53,12 @@ router.get(
 );
 
 // USER MESSAGING INTERACTIONS
+
+router.post(
+	"/favorite-parent",
+	authenticator,
+	parentController.favorite_parent
+);
 
 router.get(
 	"/messages/received",

@@ -76,11 +76,31 @@ exports.parent_dashboard = async (req, res) => {
 		res.send(err);
 	}
 };
+//########
+//FAVORITE A PARENT
+exports.favorite_parent = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const { id } = req.body;
+
+		const user = await Parent.findById(id);
+		const sender = await Parent.findById(_id);
+
+		if (sender.parents_favorite.includes(user._id))
+			return res.send("This parent is already in your Favorites List");
+
+		sender.parents_favorite.push(user._id);
+		await sender.save();
+		res.json(`Parent succesfully Favorited to ${sender.name} `);
+	} catch (err) {
+		res.send(err);
+	}
+};
 
 //#####
 //ARTICLE CREATION MANAGEMENT
 //#####
-
+//implemented
 //PARENT CREATED_ARTICLES_GET
 exports.parent_created_articles = async (req, res) => {
 	try {
@@ -132,6 +152,7 @@ exports.parent_article_delete = async (req, res) => {
 //FAVORITE ARTICLES MANAGEMENT
 //#####
 
+//implemented
 //PARENT FAVORITE ARTICLES LIST
 exports.parent_favorite_article_list = async (req, res) => {
 	try {
@@ -146,7 +167,8 @@ exports.parent_favorite_article_list = async (req, res) => {
 	}
 };
 
-//PARENT DELETE FAVORITE FROM LIST
+//implemented
+//PARENT DELETE FAVORITE ARTICLE FROM LIST
 exports.parent_favorite_article_remove = async (req, res) => {
 	try {
 		const { _id } = req.user;
@@ -166,12 +188,13 @@ exports.parent_favorite_article_remove = async (req, res) => {
 //PARENT EVENTS MANAGEMENT
 //#####
 
+//implemented
 //EVENT CREATION
 exports.parent_event_create = async (req, res) => {
 	const { _id } = req.user;
 	const { name, geometry, date, age_group, description, size } = req.body;
-	// const { error } = eventValidation.validate(req.body);
-	// if (error) res.status(403).send(error.details[0].message);
+	const { error } = eventValidation.validate(req.body);
+	if (error) res.status(403).send(error.details[0].message);
 
 	try {
 		const user = await Parent.findById(_id);
@@ -205,12 +228,17 @@ exports.parent_event_unsubscribe = async (req, res) => {
 	res.json("Unsubscribed");
 };
 
+//implemeented
 //SUBSCRIBED EVENTS LISTING
 exports.parent_events_subscribed = async (req, res) => {
-	const { _id } = req.user;
+	try {
+		const { _id } = req.user;
 
-	const subscribed = await Parent.findById(_id).populate("events_subscribed");
-	res.send(subscribed);
+		const subscribed = await Parent.findById(_id).populate("events_subscribed");
+		res.send(subscribed);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //CREATED EVENTS lISTING
@@ -244,6 +272,6 @@ exports.parent_messages_sent = async (req, res) => {
 	const { id } = req.body;
 	const messages = await Parent.findById(_id).populate("messages_sent");
 	const sent = messages.messages_sent.filter((m) => m.user == id);
-	res.json(sent);
+	res.send(sent);
 	// res.send(users);
 };

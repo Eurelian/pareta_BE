@@ -1,6 +1,7 @@
 const Event = require("../models/event");
 const Parent = require("../models/parent");
 
+//implemented
 //Get All EVENTS
 exports.events_all = async (req, res) => {
 	let allEvents = await Event.find({})
@@ -9,6 +10,7 @@ exports.events_all = async (req, res) => {
 	res.json(allEvents);
 };
 
+//implemented
 //Get One Event
 exports.event_one = async (req, res) => {
 	const { id } = req.params;
@@ -16,6 +18,7 @@ exports.event_one = async (req, res) => {
 	res.json(oneEvent);
 };
 
+//implemented
 //SUBSCRIBE PARENT TO EVENT
 exports.events_subscribe = async (req, res) => {
 	const { _id } = req.user;

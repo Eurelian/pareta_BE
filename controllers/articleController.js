@@ -2,6 +2,7 @@ const Parent = require("../models/parent");
 const Article = require("../models/article");
 
 //Get all articles
+//implemented
 exports.all_articles = async (req, res) => {
 	try {
 		let allArticles = await Article.find({}).populate("author");
@@ -12,6 +13,7 @@ exports.all_articles = async (req, res) => {
 };
 
 //Get preview articles
+//implemented
 exports.preview_articles = async (req, res) => {
 	try {
 		let preview = await Article.find({}).populate("author");
@@ -22,6 +24,7 @@ exports.preview_articles = async (req, res) => {
 };
 
 //Get one article
+//implemented
 exports.one_article = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -33,6 +36,7 @@ exports.one_article = async (req, res) => {
 };
 
 //Favorite an article
+//implemented
 exports.favorite_article = async (req, res) => {
 	try {
 		const { id } = req.body;
