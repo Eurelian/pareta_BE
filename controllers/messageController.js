@@ -33,7 +33,7 @@ exports.message_sent = async (req, res) => {
 
 //GET CURRENT CONVERSATION DATA
 
-exports.message_get = async (req, res) => {
+exports.messages_get = async (req, res) => {
 	try {
 		const { _id } = req.user;
 		const { id } = req.body;
