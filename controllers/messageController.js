@@ -43,9 +43,11 @@ exports.message_get = async (req, res) => {
 			populate: { path: "sender" },
 		});
 
-		await res.send(
-			messages.messages_received.filter((item) => item.sender._id == id)
+		const received = messages.messages_received.filter(
+			(item) => item.sender._id == id
 		);
+
+		if (received) await res.send(received);
 	} catch (err) {
 		res.send(err);
 	}
