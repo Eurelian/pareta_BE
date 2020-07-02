@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// const GeoSchema = new Schema({
-// 	type: {
-// 		type: String,
-// 		default: "Point",
-// 		// required: true,
-// 	},
-// 	coordinates: {
-// 		type: [Number],
-// 		index: "2dsphere",
-// 	},
-// });
+const GeoSchema = new Schema({
+	type: {
+		type: String,
+		default: "Point",
+		// required: true,
+	},
+	coordinates: {
+		type: [Number],
+		index: "2dsphere",
+	},
+});
 
 const EventSchema = new Schema({
 	name: {
@@ -21,17 +21,7 @@ const EventSchema = new Schema({
 		trim: true,
 	},
 
-	location: {
-		type: {
-			type: String,
-			default: "Point",
-			required: true,
-		},
-		coordinates: {
-			type: [Number],
-			index: "2dsphere",
-		},
-	},
+	geometry: GeoSchema,
 
 	createdAt: {
 		type: Date,
