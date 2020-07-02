@@ -43,7 +43,7 @@ exports.message_get = async (req, res) => {
 			populate: { path: "sender" },
 		});
 
-		res.send(
+		await res.send(
 			messages.messages_received.filter((item) => item.sender._id == id)
 		);
 	} catch (err) {
