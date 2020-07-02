@@ -37,17 +37,29 @@ exports.messages_get = async (req, res) => {
 	try {
 		const { _id } = req.user;
 		const { id } = req.params;
+		let data = [];
 
-		const messages = await Parent.findById(_id, "messages_received").populate({
+		const mReceived = await Parent.findById(_id, "messages_received").populate({
 			path: "messages_received",
-			populate: { path: "sender" },
+			populate: { path: "sender", select: { name: 1 } },
 		});
 
-		const received = messages.messages_received.filter(
+		const received = mReceived.messages_received.filter(
 			(item) => item.sender._id == id
 		);
 
-		res.json(received);
+		const mSent = await Parent.findById(_id, "messages_sent")
+			.select({ sender: 1 })
+			.populate({
+				path: "messages_sent",
+				populate: { path: "sender", select: { name: 1 } },
+			});
+
+		const sent = mSent.messages_sent.filter((item) => item.user == id);
+		data.push(sent);
+		data.push(received);
+
+		res.json(data);
 	} catch (err) {
 		res.send(err);
 	}
