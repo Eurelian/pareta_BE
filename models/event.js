@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // const GeoSchema = new Schema({
 // 	type: {
 // 		type: String,
-// 		enum: ["Point"],
+// 		default: "Point",
 // 		// required: true,
 // 	},
 // 	coordinates: {
@@ -24,7 +24,7 @@ const EventSchema = new Schema({
 	location: {
 		type: {
 			type: String,
-			enum: ["Point"],
+			default: "Point",
 			required: true,
 		},
 		coordinates: {
