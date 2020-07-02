@@ -21,7 +21,7 @@ const EventSchema = new Schema({
 		trim: true,
 	},
 
-	geometry: {
+	location: {
 		type: {
 			type: String,
 			enum: ["Point"],
