@@ -36,7 +36,7 @@ exports.message_sent = async (req, res) => {
 exports.messages_get = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const { id } = req.body;
+		const { id } = req.params;
 
 		const messages = await Parent.findById(_id, "messages_received").populate({
 			path: "messages_received",

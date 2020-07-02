@@ -7,6 +7,6 @@ const messageController = require("../controllers/messageController");
 routes.post("/", authenticator, messageController.message_sent);
 
 //Get Messages
-routes.get("/received", authenticator, messageController.messages_get);
+routes.get("/received/:id", authenticator, messageController.messages_get);
 
 module.exports = routes;
