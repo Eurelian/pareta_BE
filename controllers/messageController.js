@@ -47,7 +47,7 @@ exports.messages_get = async (req, res) => {
 			(item) => item.sender._id == id
 		);
 
-		if (received) await res.send(received);
+		res.json(received);
 	} catch (err) {
 		res.send(err);
 	}
