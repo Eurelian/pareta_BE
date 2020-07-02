@@ -119,7 +119,7 @@ exports.favorite_parents = async (req, res) => {
 		const data = await Parent.findById(_id, "parents_favorite").populate(
 			"parents_favorite"
 		);
-		await res.send(data);
+		res.send(data);
 	} catch (err) {
 		res.send(err);
 	}
