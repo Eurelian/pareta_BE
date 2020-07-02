@@ -39,27 +39,53 @@ exports.messages_get = async (req, res) => {
 		const { id } = req.params;
 		let data = [];
 
-		const mReceived = await Parent.findById(_id, "messages_received").populate({
-			path: "messages_received",
-			populate: { path: "sender", select: { name: 1 } },
-		});
-
-		const received = mReceived.messages_received.filter(
-			(item) => item.sender._id == id
-		);
-
-		const mSent = await Parent.findById(_id, "messages_sent")
-			.select({ sender: 1 })
-			.populate({
+		Promise.all([
+			await Parent.findById(_id, "messages_received").populate({
+				path: "messages_received",
+				populate: { path: "sender", select: { name: 1 } },
+			}),
+			await Parent.findById(_id, "messages_sent").populate({
 				path: "messages_sent",
 				populate: { path: "sender", select: { name: 1 } },
+			}),
+		]).then((results) => {
+			const [received, sent] = results;
+			const got = received.messages_received.filter(
+				(item) => item.sender._id == id
+			);
+			const send = sent.messages_sent.filter((item) => item.user == id);
+
+			const data = received.messages_received.concat(sent.messages_sent);
+			const sorted = data.sort((a, b) => {
+				return a.createdAt < b.createdAt
+					? -1
+					: a.createdAt > b.createdAt
+					? 1
+					: 0;
 			});
+			res.json(sorted);
+		});
 
-		const sent = mSent.messages_sent.filter((item) => item.user == id);
-		data.push(sent);
-		data.push(received);
+		// const mReceived = await Parent.findById(_id, "messages_received").populate({
+		// 	path: "messages_received",
+		// 	populate: { path: "sender", select: { name: 1 } },
+		// });
 
-		res.json(data);
+		// const received = mReceived.messages_received.filter(
+		// 	(item) => item.sender._id == id
+		// );
+
+		// const mSent = await Parent.findById(_id, "messages_sent")
+		// 	.select({ sender: 1 })
+		// 	.populate({
+		// 		path: "messages_sent",
+		// 		populate: { path: "sender", select: { name: 1 } },
+		// 	});
+
+		// const sent = mSent.messages_sent.filter((item) => item.user == id);
+		// data.push(sent);
+		// data.push(received);
+		// res.json(data);
 	} catch (err) {
 		res.send(err);
 	}
