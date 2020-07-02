@@ -266,8 +266,6 @@ exports.parent_events_created = async (req, res) => {
 //PARENT MESSAGE MANAGEMENT
 //#####
 
-//SEE ALL USERS THAT SENT MESSAGES TO USER
-
 //SEE ALL MESSSAGES SENT FROM A SPECIFIC USER
 exports.parent_messages_received = async (req, res) => {
 	const { _id } = req.user;
