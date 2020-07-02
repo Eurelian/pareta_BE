@@ -20,7 +20,7 @@ const eventValidate = Joi.object({
 		"string.max": `Event Desscription should have a maximum length of {#limit} `,
 		"any.required": `Event Description is a required field`,
 	}),
-	geometry: Joi.string(),
+	geometry: Joi.object(),
 
 	size: Joi.number().min(4).required().messages({
 		"number.min": `Event Size can't be smaller than {#limit}`,
