@@ -17,7 +17,7 @@ exports.parent_register = async (req, res) => {
 		const { name, email, password } = req.body;
 
 		const { error } = registerValidate.validate(req.body);
-		if (error) res.send(error.details[0].message);
+		if (error) res.status(403).send(error.details[0].message);
 
 		const emailExist = await Parent.findOne({ email: email });
 		if (emailExist)
