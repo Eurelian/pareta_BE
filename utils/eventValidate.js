@@ -7,7 +7,8 @@ const eventValidate = Joi.object({
 		"string.max": `Event Name should have a maximum length of {#limit} `,
 		"any.required": `Event Name is a required field`,
 	}),
-	date: Joi.min("now")
+	date: Joi.date()
+		.min("now")
 		.required()
 		.messages({ "any.required": `Event must have a date` }),
 	age_group: Joi.required().messages({
