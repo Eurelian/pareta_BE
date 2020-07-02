@@ -12,8 +12,8 @@ exports.message_sent = async (req, res) => {
 		const sender = await Parent.findById(_id);
 
 		const message = new Message({
-			text: text,
 			user: id,
+			text: text,
 			sender: _id,
 		});
 
@@ -32,12 +32,11 @@ exports.message_sent = async (req, res) => {
 };
 
 //GET CURRENT CONVERSATION DATA
-
+//implemented
 exports.messages_get = async (req, res) => {
 	try {
 		const { _id } = req.user;
 		const { id } = req.params;
-		let data = [];
 
 		Promise.all([
 			await Parent.findById(_id, "messages_received").populate({
@@ -53,9 +52,11 @@ exports.messages_get = async (req, res) => {
 			const got = received.messages_received.filter(
 				(item) => item.sender._id == id
 			);
+
 			const send = sent.messages_sent.filter((item) => item.user == id);
 
-			const data = received.messages_received.concat(sent.messages_sent);
+			const data = got.concat(send);
+
 			const sorted = data.sort((a, b) => {
 				return a.createdAt < b.createdAt
 					? -1

@@ -78,6 +78,7 @@ exports.parent_dashboard = async (req, res) => {
 };
 
 //Get Data for one parent
+//implemented
 exports.parent_get_one = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -90,6 +91,7 @@ exports.parent_get_one = async (req, res) => {
 
 //########
 //FAVORITE A PARENT
+//implemented
 exports.favorite_parent = async (req, res) => {
 	try {
 		const { _id } = req.user;
@@ -110,7 +112,7 @@ exports.favorite_parent = async (req, res) => {
 };
 
 //GET FAVORITE PARENTS
-
+//implemented
 exports.favorite_parents = async (req, res) => {
 	try {
 		const { _id } = req.user;
@@ -279,6 +281,7 @@ exports.parent_events_created = async (req, res) => {
 //#####
 
 //SEE ALL MESSSAGES SENT FROM A SPECIFIC USER
+//implemented
 exports.parent_messages_received = async (req, res) => {
 	const { _id } = req.user;
 	const { id } = req.body;
@@ -290,7 +293,7 @@ exports.parent_messages_received = async (req, res) => {
 };
 
 //SEE ALL MESSSAGES SENT TO A SPECIFIC USER
-
+//implemented
 exports.parent_messages_sent = async (req, res) => {
 	const { _id } = req.user;
 	const { id } = req.body;
