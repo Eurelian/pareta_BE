@@ -11,28 +11,29 @@ const { favorite_article } = require("./articleController");
 
 // PARENT REGISTRATION
 exports.parent_register = async (req, res) => {
-	const { name, email, password } = req.body;
-
-	const { error } = schema.validate(req.body);
-	if (error) res.send(error.details[0].message);
-
-	const emailExist = await Parent.findOne({ email: email });
-	if (emailExist) return res.status(400).send("E-mail address already exists.");
-
-	const saltRounds = 10;
-	const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-	const parent = new Parent({
-		name: name,
-		email: email,
-		password: hashedPassword,
-	});
-
 	try {
+		const { name, email, password } = req.body;
+
+		const { error } = schema.validate(req.body);
+		if (error) res.send(error.details[0].message);
+
+		const emailExist = await Parent.findOne({ email: email });
+		if (emailExist)
+			return res.status(400).send("E-mail address already exists.");
+
+		const saltRounds = 10;
+		const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+		const parent = new Parent({
+			name: name,
+			email: email,
+			password: hashedPassword,
+		});
+
 		const savedParent = await parent.save();
 		res.send(savedParent);
 	} catch (err) {
-		res.status(400).send("Invalid Request");
+		send(err);
 	}
 };
 
