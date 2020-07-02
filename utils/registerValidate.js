@@ -1,6 +1,6 @@
 const Joi = require("@hapi/joi");
 
-const schema = Joi.object({
+const register = Joi.object({
 	name: Joi.string().empty().min(3).max(255).required().messages({
 		"string.empty": "Name Field can't be empty",
 		"any.required": "Please enter your name",
@@ -15,4 +15,4 @@ const schema = Joi.object({
 	}),
 });
 
-module.exports = schema;
+module.exports = register;
