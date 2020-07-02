@@ -9,7 +9,7 @@ const parentController = require("../controllers/parentController");
 router.get("/", authenticator, parentController.parent_dashboard);
 
 //Get One Parent
-router.get("/:id", authenticator, parentController.parent_get_one);
+router.get("/parent/:id", authenticator, parentController.parent_get_one);
 
 //User post interactions
 //implemented
