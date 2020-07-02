@@ -76,6 +76,18 @@ exports.parent_dashboard = async (req, res) => {
 		res.send(err);
 	}
 };
+
+//Get Data for one parent
+exports.parent_get_one = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const data = await Parent.findById(id, "name");
+		res.send(data);
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //########
 //FAVORITE A PARENT
 exports.favorite_parent = async (req, res) => {
