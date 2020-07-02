@@ -2,9 +2,10 @@ const Parent = require("../models/parent");
 const Article = require("../models/article");
 const Event = require("../models/event");
 const Message = require("../models/message");
-const register = require("../utils/registerValidate");
+
 const bcrypt = require("bcrypt");
 const validation = require("../utils/loginValidate");
+const registerValidate = require("../utils/registerValidate");
 const eventValidation = require("../utils/eventValidate");
 const jwt = require("jsonwebtoken");
 const { favorite_article } = require("./articleController");
@@ -15,7 +16,7 @@ exports.parent_register = async (req, res) => {
 	try {
 		const { name, email, password } = req.body;
 
-		const { error } = register.validate(req.body);
+		const { error } = registerValidate.validate(req.body);
 		if (error) res.send(error.details[0].message);
 
 		const emailExist = await Parent.findOne({ email: email });
@@ -33,7 +34,7 @@ exports.parent_register = async (req, res) => {
 		await parent.save();
 		res.send(parent);
 	} catch (err) {
-		send(err);
+		res.send(err);
 	}
 };
 
