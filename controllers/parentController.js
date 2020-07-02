@@ -222,7 +222,7 @@ exports.parent_event_create = async (req, res) => {
 	const { _id } = req.user;
 	const { name, geometry, date, age_group, description, size } = req.body;
 	const { error } = eventValidation.validate(req.body);
-	if (error) return res.status(403).send(error.details[0].message);
+	if (error) res.status(403).send(error.details[0].message);
 
 	try {
 		const user = await Parent.findById(_id);
