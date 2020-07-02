@@ -228,7 +228,7 @@ exports.parent_event_create = async (req, res) => {
 		const user = await Parent.findById(_id);
 		const event = await new Event({
 			name: name,
-			location: geometry,
+			geometry: geometry,
 			date: date,
 			age_group: age_group,
 			description: description,
