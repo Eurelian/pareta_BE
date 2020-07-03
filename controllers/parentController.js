@@ -282,8 +282,10 @@ exports.parent_is_subscribed = async (req, res) => {
 exports.parent_events_subscribed = async (req, res) => {
 	try {
 		const { _id } = req.user;
-
-		const subscribed = await Parent.findById(_id).populate("events_subscribed");
+		const subscribed = await Parent.findById(
+			_id,
+			"events_subsscribed"
+		).populate("events_subscribed");
 		res.send(subscribed);
 	} catch (err) {
 		res.send(err);
