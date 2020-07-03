@@ -50,3 +50,22 @@ exports.events_subscribe = async (req, res) => {
 		res.send(err);
 	}
 };
+
+//DELETE EVENT
+exports.events_delete = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const { id } = req.params;
+		await Parent.findById(_id).updateOne({
+			$pullAll: { events_created: [id] },
+		});
+		await Event.deleteOne(id);
+
+		const created = await Parent.findById(_id, "events_created").populate(
+			"events_created"
+		);
+		res.send(created);
+	} catch (err) {
+		res.send(err);
+	}
+};
