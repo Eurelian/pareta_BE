@@ -5,7 +5,7 @@ const Parent = require("../models/parent");
 //Get All EVENTS
 exports.events_all = async (req, res) => {
 	let allEvents = await Event.find({})
-		.populate("organizer")
+		.populate("organizer", "name")
 		.populate("attending");
 	res.json(allEvents);
 };
@@ -16,7 +16,7 @@ exports.event_one = async (req, res) => {
 	try {
 		const { id } = req.params;
 		let oneEvent = await Event.findById(id)
-			.populate("organizer", { path: "organizer", select: "name" })
+			.populate("organizer")
 			.populate("attending");
 		res.send(oneEvent);
 	} catch (err) {
