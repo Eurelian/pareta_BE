@@ -15,7 +15,9 @@ exports.events_all = async (req, res) => {
 exports.event_one = async (req, res) => {
 	try {
 		const { id } = req.params;
-		let oneEvent = await Event.findById(id);
+		let oneEvent = await Event.findById(id)
+			.populate("organizer")
+			.populate("attending");
 		res.send(oneEvent);
 	} catch (err) {
 		res.send(err);
