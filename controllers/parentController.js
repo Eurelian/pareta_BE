@@ -274,9 +274,15 @@ exports.parent_events_subscribed = async (req, res) => {
 
 //CREATED EVENTS lISTING
 exports.parent_events_created = async (req, res) => {
-	const { _id } = req.user;
-	const events = await Parent.findById(_id).populate("events_created");
-	res.send(events);
+	try {
+		const { _id } = req.user;
+		const events = await Parent.findById(_id, "events_created").populate(
+			"events_created"
+		);
+		res.send(events);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //#####
