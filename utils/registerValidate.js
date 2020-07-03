@@ -6,7 +6,7 @@ const registerValidate = Joi.object({
 		"any.required": "Please enter your name",
 	}),
 	email: Joi.string().empty().email().required().messages({
-		"string.empty": "Please enter a valid Email address ",
+		"string.email": "Please enter a valid Email address ",
 		"any.default": "Please enter a valid Email address ",
 	}),
 	password: Joi.string().min(8).max(255).required().messages({
