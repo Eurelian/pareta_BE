@@ -16,7 +16,7 @@ exports.event_one = async (req, res) => {
 	try {
 		const { id } = req.params;
 		let oneEvent = await Event.findById(id)
-			.populate({ path: "organizer", populate: { path: "name" } })
+			.populate("organizer", { path: "organizer", select: "name" })
 			.populate("attending");
 		res.send(oneEvent);
 	} catch (err) {
