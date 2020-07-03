@@ -38,7 +38,7 @@ router.delete(
 router.post("/events", authenticator, parentController.parent_event_create);
 
 router.delete(
-	"/events",
+	"/events/:id",
 	authenticator,
 	parentController.parent_event_unsubscribe
 );

@@ -253,7 +253,7 @@ exports.parent_event_create = async (req, res) => {
 exports.parent_event_unsubscribe = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const { id } = req.body;
+		const { id } = req.params;
 
 		await Parent.findById(_id).updateOne({
 			$pullAll: { events_subscribed: [id] },
