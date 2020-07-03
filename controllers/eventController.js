@@ -43,8 +43,8 @@ exports.events_subscribe = async (req, res) => {
 		await event.save();
 		await user.save();
 		res.send(
-			subscribed,
-			`You are now Subscribed to ${event.name.slice(0, 30)}...`
+			subscribed
+			// `You are now Subscribed to ${event.name.slice(0, 30)}...`
 		);
 	} catch (err) {
 		res.send(err);
