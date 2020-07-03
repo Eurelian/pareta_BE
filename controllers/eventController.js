@@ -13,9 +13,13 @@ exports.events_all = async (req, res) => {
 //implemented
 //Get One Event
 exports.event_one = async (req, res) => {
-	const { id } = req.params;
-	let oneEvent = await Event.findById(id);
-	res.json(oneEvent);
+	try {
+		const { id } = req.params;
+		let oneEvent = await Event.findById(id);
+		res.send(oneEvent);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //implemented
