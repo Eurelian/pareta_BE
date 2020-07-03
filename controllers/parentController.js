@@ -282,6 +282,18 @@ exports.parent_is_subscribed = async (req, res) => {
 	}
 };
 
+//CHECK IF PARENT HAS CREATED THE EVENT
+exports.parent_has_created = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const { id } = req.params;
+		const user = await Parent.findById(_id);
+		if (user.events_created.includes(id)) res.send("Created");
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //implemeented
 //SUBSCRIBED EVENTS LISTING
 exports.parent_events_subscribed = async (req, res) => {

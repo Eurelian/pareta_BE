@@ -43,6 +43,12 @@ router.delete(
 	parentController.parent_event_unsubscribe
 );
 
+router.get(
+	"/events/created/:id",
+	authenticator,
+	parentController.parent_has_created
+);
+
 //implemented
 router.get(
 	"/events/subscribed",
