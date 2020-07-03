@@ -230,7 +230,7 @@ exports.parent_event_create = async (req, res) => {
 	try {
 		const user = await Parent.findById(_id);
 		if (user.events_created.length > 3)
-			res.status(403).send("You can only have a maximum of 4 created events");
+			res.status(403).send("You can only have a maximum of 4 events created");
 		const event = await new Event({
 			name: name,
 			geometry: geometry,
@@ -251,14 +251,30 @@ exports.parent_event_create = async (req, res) => {
 
 //UNSUBSCRIBE FROM EVENT
 exports.parent_event_unsubscribe = async (req, res) => {
-	const { _id } = req.user;
-	const { id } = req.body;
+	try {
+		const { _id } = req.user;
+		const { id } = req.body;
 
-	await Parent.findById(_id).updateOne({
-		$pullAll: { events_subscribed: [id] },
-	});
-	await Event.findById(id).updateOne({ $pullAll: { attending: [_id] } });
-	res.json("Unsubscribed");
+		await Parent.findById(_id).updateOne({
+			$pullAll: { events_subscribed: [id] },
+		});
+		await Event.findById(id).updateOne({ $pullAll: { attending: [_id] } });
+		res.json("Unsubscribed");
+	} catch (err) {
+		res.send(err);
+	}
+};
+
+//CHECK IF PARENT IS SUBSCRIBED TO EVENT
+exports.parent_is_subscribed = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const { id } = req.params;
+		const user = await Parent.findById(_id);
+		if (user.events_subscribed.includes(id)) res.send("Subscribed");
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //implemeented

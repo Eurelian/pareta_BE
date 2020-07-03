@@ -21,17 +21,19 @@ exports.event_one = async (req, res) => {
 //implemented
 //SUBSCRIBE PARENT TO EVENT
 exports.events_subscribe = async (req, res) => {
-	const { _id } = req.user;
-	const { id } = req.body;
 	try {
+		const { _id } = req.user;
+		const { id } = req.body;
 		const user = await Parent.findById(_id);
 		const event = await Event.findById(id);
+		if (event.attending.includes(user._id))
+			res.status(403).send("You are Already Subscribed to this Event.");
 
 		event.attending.push(user._id);
 		user.events_subscribed.push(event._id);
 		await event.save();
 		await user.save();
-		res.send(`${user.name} has subscribed to ${event.name}`);
+		res.send(`You are now Subscribed to ${event.name.slice(0, 30)}...`);
 	} catch (err) {
 		res.send(err);
 	}

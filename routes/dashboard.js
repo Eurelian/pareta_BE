@@ -49,6 +49,13 @@ router.get(
 	authenticator,
 	parentController.parent_events_subscribed
 );
+
+router.get(
+	"/events/subscribed/:id",
+	authenticator,
+	parentController.parent_is_subscribed
+);
+
 router.get(
 	"/events/created",
 	authenticator,
