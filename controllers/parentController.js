@@ -276,7 +276,8 @@ exports.parent_is_subscribed = async (req, res) => {
 		const { _id } = req.user;
 		const { id } = req.params;
 		const user = await Parent.findById(_id);
-		if (user.events_subscribed.includes(id)) res.send("Subscribed");
+		if (!user.events_subscribed.includes(id)) return res.send("");
+		if (user.events_subscribed.includes(id)) return res.send("Subscribed");
 	} catch (err) {
 		res.send(err);
 	}
