@@ -259,7 +259,7 @@ exports.parent_event_unsubscribe = async (req, res) => {
 			$pullAll: { events_subscribed: [id] },
 		});
 		await Event.findById(id).updateOne({ $pullAll: { attending: [_id] } });
-		res.json("Unsubscribed");
+		res.json(`Unsubscribed from ${event.name.slice(0, 30)}...`);
 	} catch (err) {
 		res.send(err);
 	}
