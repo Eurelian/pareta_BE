@@ -308,7 +308,7 @@ exports.parent_events_subscribed = async (req, res) => {
 			}
 		);
 
-		res.send(events);
+		res.send(subscribed);
 	} catch (err) {
 		res.send(err);
 	}
