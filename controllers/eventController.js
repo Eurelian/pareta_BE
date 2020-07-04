@@ -9,9 +9,6 @@ exports.events_all = async (req, res) => {
 			.populate("organizer", "name")
 			.populate("attending");
 
-		const sorted = allEvents.sort((a, b) => {
-			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
-		});
 		res.json(allEvents);
 	} catch (err) {
 		res.send(err);

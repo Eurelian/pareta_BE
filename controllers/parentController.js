@@ -265,11 +265,7 @@ exports.parent_event_unsubscribe = async (req, res) => {
 			"events_subscribed"
 		);
 
-		const sorted = subscribed.sort((a, b) => {
-			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
-		});
-
-		res.send(sorted);
+		res.send(subscribed);
 	} catch (err) {
 		res.send(err);
 	}
@@ -311,10 +307,8 @@ exports.parent_events_subscribed = async (req, res) => {
 				populate: { path: "organizer" },
 			}
 		);
-		const sorted = subscribed.sort((a, b) => {
-			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
-		});
-		res.send(sorted);
+
+		res.send(events);
 	} catch (err) {
 		res.send(err);
 	}
@@ -328,10 +322,8 @@ exports.parent_events_created = async (req, res) => {
 			path: "events_created",
 			populate: { path: "attending" },
 		});
-		const sorted = events.sort((a, b) => {
-			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
-		});
-		res.send(sorted);
+
+		res.send(events);
 	} catch (err) {
 		res.send(err);
 	}
