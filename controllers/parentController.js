@@ -225,8 +225,8 @@ exports.parent_favorite_article_remove = async (req, res) => {
 exports.parent_event_create = async (req, res) => {
 	const { _id } = req.user;
 	const { name, geometry, date, age_group, description, size } = req.body;
-	// const { error } = await eventValidation.validate(req.body);
-	// if (error) res.status(403).send(error.details[0].message);
+	const { error } = await eventValidation.validate(req.body);
+	if (error) res.status(403).send(error.details[0].message);
 
 	try {
 		const user = await Parent.findById(_id);
