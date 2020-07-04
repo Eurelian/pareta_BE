@@ -300,9 +300,10 @@ exports.parent_has_created = async (req, res) => {
 exports.parent_events_subscribed = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const subscribed = await Parent.findById(_id, "events_subscribed").populate(
+		const subscribed = await Parent.findById(
+			_id,
 			"events_subscribed"
-		);
+		).populate({ path: "events_subscribed", populate: { path: "attending" } });
 		res.send(subscribed);
 	} catch (err) {
 		res.send(err);
@@ -313,9 +314,10 @@ exports.parent_events_subscribed = async (req, res) => {
 exports.parent_events_created = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const events = await Parent.findById(_id, "events_created").populate(
-			"events_created"
-		);
+		const events = await Parent.findById(_id, "events_created").populate({
+			path: "events_created",
+			populate: { path: "attending" },
+		});
 		res.send(events);
 	} catch (err) {
 		res.send(err);
