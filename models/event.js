@@ -39,7 +39,7 @@ const EventSchema = new Schema({
 	},
 
 	date: { type: Date },
-	organizer: [{ type: Schema.Types.ObjectId, ref: "Parent" }],
+	organizer: { type: Schema.Types.ObjectId, ref: "Parent" },
 	age_group: { type: Array },
 	description: { type: String },
 	size: { type: Number },
