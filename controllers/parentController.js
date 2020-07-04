@@ -140,7 +140,7 @@ exports.parent_created_articles = async (req, res) => {
 			"articles_created"
 		);
 
-		res.send(sorted);
+		res.send(parent);
 	} catch (err) {
 		res.send(err);
 	}
