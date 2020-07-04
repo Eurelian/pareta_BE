@@ -303,7 +303,7 @@ exports.parent_events_subscribed = async (req, res) => {
 		const subscribed = await Parent.findById(_id, "events_subscribed").populate(
 			{
 				path: "events_subscribed",
-				populate: { path: "attending" },
+				populate: { path: "organizer" },
 			}
 		);
 		res.send(subscribed);
