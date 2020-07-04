@@ -230,8 +230,8 @@ exports.parent_event_create = async (req, res) => {
 
 	try {
 		const user = await Parent.findById(_id);
-		if (user.events_created.length > 3)
-			res.status(403).send("You can only have a maximum of 4 events created");
+		// if (user.events_created.length > 3)
+		// 	res.status(403).send("You can only have a maximum of 4 events created");
 		const event = await new Event({
 			name: name,
 			geometry: geometry,
