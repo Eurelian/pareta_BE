@@ -139,7 +139,8 @@ exports.parent_created_articles = async (req, res) => {
 		const parent = await Parent.findById(_id, "articles_created").populate(
 			"articles_created"
 		);
-		res.send(parent);
+
+		res.send(sorted);
 	} catch (err) {
 		res.send(err);
 	}
@@ -264,7 +265,11 @@ exports.parent_event_unsubscribe = async (req, res) => {
 			"events_subscribed"
 		);
 
-		res.send(subscribed);
+		const sorted = subscribed.sort((a, b) => {
+			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+		});
+
+		res.send(sorted);
 	} catch (err) {
 		res.send(err);
 	}
@@ -306,7 +311,10 @@ exports.parent_events_subscribed = async (req, res) => {
 				populate: { path: "organizer" },
 			}
 		);
-		res.send(subscribed);
+		const sorted = subscribed.sort((a, b) => {
+			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+		});
+		res.send(sorted);
 	} catch (err) {
 		res.send(err);
 	}
@@ -320,7 +328,10 @@ exports.parent_events_created = async (req, res) => {
 			path: "events_created",
 			populate: { path: "attending" },
 		});
-		res.send(events);
+		const sorted = events.sort((a, b) => {
+			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+		});
+		res.send(sorted);
 	} catch (err) {
 		res.send(err);
 	}

@@ -4,10 +4,18 @@ const Parent = require("../models/parent");
 //implemented
 //Get All EVENTS
 exports.events_all = async (req, res) => {
-	let allEvents = await Event.find({})
-		.populate("organizer", "name")
-		.populate("attending");
-	res.json(allEvents);
+	try {
+		let allEvents = await Event.find({})
+			.populate("organizer", "name")
+			.populate("attending");
+
+		const sorted = allEvents.sort((a, b) => {
+			return a.createdAt < b.createdAt ? -1 : a.createdAt > b.createdAt ? 1 : 0;
+		});
+		res.json(allEvents);
+	} catch (err) {
+		res.send(err);
+	}
 };
 
 //implemented
