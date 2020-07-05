@@ -80,3 +80,18 @@ exports.events_delete = async (req, res) => {
 		res.send(err);
 	}
 };
+
+//Search for EVENTS
+exports.search_events = async (req, res) => {
+	try {
+		const { query } = req.body;
+		if (!query) {
+			let allEvents = await Event.find({}).populate("organizer");
+			res.send(allArticles);
+		}
+		let articles = await Event.find({ $text: { $search: query } });
+		res.send(articles);
+	} catch (err) {
+		res.send(err);
+	}
+};

@@ -19,6 +19,7 @@ const EventSchema = new Schema({
 		required: [true, "Please add an event name"],
 		unique: true,
 		trim: true,
+		text: true,
 	},
 
 	geometry: {
