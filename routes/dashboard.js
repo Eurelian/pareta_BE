@@ -33,7 +33,7 @@ router.delete(
 	parentController.parent_favorite_article_remove
 );
 router.get(
-	"/posts/:id",
+	"/posts/favorite/:id",
 	authenticator,
 	parentController.parent_article_is_favorite
 );
