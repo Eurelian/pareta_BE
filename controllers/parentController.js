@@ -160,9 +160,13 @@ exports.parent_article_post = async (req, res) => {
 		});
 
 		user.articles_created.push(post._id);
+
+		const created = await Parent.findById(_id, "articles_created").populate(
+			"articles_created"
+		);
 		await user.save();
 		await post.save();
-		res.send("Article succesfully submitted");
+		res.send(created);
 	} catch (err) {
 		res.send(err);
 	}
