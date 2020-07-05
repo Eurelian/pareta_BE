@@ -105,6 +105,7 @@ exports.favorite_parent = async (req, res) => {
 
 		if (sender.parents_favorite.includes(user._id))
 			return res.send("This parent is already in your Favorites List");
+		if (user._id == sender._id) return res.send("Can't message yourself");
 
 		sender.parents_favorite.push(user._id);
 		await sender.save();
