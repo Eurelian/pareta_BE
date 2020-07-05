@@ -49,8 +49,12 @@ exports.favorite_article = async (req, res) => {
 		if (isArticle.length < 1) return res.send("Article already favorited");
 
 		user.articles_favorite.push(article._id);
+
+		const favorite = await Parent.findById(_id, "articles_favorite").populate(
+			"articles_favorite"
+		);
 		await user.save();
-		res.send(`${article_name} added to your favorites list`);
+		res.send(favorite);
 	} catch (err) {
 		res.send(err);
 	}
