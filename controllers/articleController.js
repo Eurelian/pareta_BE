@@ -20,7 +20,9 @@ exports.search_articles = async (req, res) => {
 			let allArticles = await Article.find({}).populate("author");
 			res.send(allArticles);
 		}
-		let articles = await Article.find({ $text: { $search: query } });
+		let articles = await Article.find({
+			$text: { $search: query, $caseSensitive: false },
+		});
 		res.send(articles);
 	} catch (err) {
 		res.send(err);
