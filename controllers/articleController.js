@@ -43,10 +43,10 @@ exports.favorite_article = async (req, res) => {
 		const { _id } = req.user;
 		const user = await Parent.findById(_id);
 		const article = await Article.findById(id);
-		const isArticle = user.articles_favorite.filter(
-			(favorite_id) => favorite_id === article._id
-		);
-		if (isArticle.length < 1) return res.send("Article already favorited");
+		// const isArticle = user.articles_favorite.filter(
+		// 	(favorite_id) => favorite_id === article._id
+		// );
+		// if (isArticle.length < 1) return res.send("Article already favorited");
 
 		user.articles_favorite.push(article._id);
 
