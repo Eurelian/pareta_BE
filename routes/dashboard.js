@@ -28,7 +28,7 @@ router.get(
 );
 //implemented
 router.delete(
-	"/posts/favorite",
+	"/post/favorite/:id",
 	authenticator,
 	parentController.parent_favorite_article_remove
 );

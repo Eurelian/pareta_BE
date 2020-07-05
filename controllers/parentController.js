@@ -217,7 +217,7 @@ exports.parent_article_is_favorite = async (req, res) => {
 exports.parent_favorite_article_remove = async (req, res) => {
 	try {
 		const { _id } = req.user;
-		const { id } = req.body;
+		const { id } = req.params;
 
 		await Parent.findById(_id).updateOne({
 			$pullAll: { articles_favorite: [id] },
