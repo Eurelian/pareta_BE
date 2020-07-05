@@ -16,7 +16,7 @@ const Schema = mongoose.Schema;
 const EventSchema = new Schema({
 	name: {
 		type: String,
-		required: [true, "Please add an event name"],
+
 		unique: true,
 		trim: true,
 		text: true,

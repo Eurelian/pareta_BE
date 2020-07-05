@@ -89,7 +89,7 @@ exports.search_events = async (req, res) => {
 			let allEvents = await Event.find({}).populate("organizer");
 			res.send(allEvents);
 		}
-		let events = await Event.find({ $name: { $search: query } });
+		let events = await Event.find({ $text: { $search: query } });
 		res.send(events);
 	} catch (err) {
 		res.send(err);
