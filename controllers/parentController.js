@@ -199,6 +199,7 @@ exports.parent_favorite_article_list = async (req, res) => {
 	}
 };
 
+//CHECK IF CURRENT ARTICLE IS FAVORITE
 exports.parent_article_is_favorite = async (req, res) => {
 	try {
 		const { _id } = req.user;

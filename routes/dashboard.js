@@ -32,6 +32,11 @@ router.delete(
 	authenticator,
 	parentController.parent_favorite_article_remove
 );
+router.get(
+	"/posts/:id",
+	authenticator,
+	parentController.parent_article_is_favorite
+);
 
 //User Events Interactions
 //implemented
