@@ -12,6 +12,18 @@ exports.all_articles = async (req, res) => {
 	}
 };
 
+//Search for Articles
+exports.search_articles = async (req, res) => {
+	try {
+		const { query } = req.body;
+
+		let articles = await Article.find({ $text: { $search: query } });
+		res.send(articles);
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //Get preview articles
 //implemented
 exports.preview_articles = async (req, res) => {

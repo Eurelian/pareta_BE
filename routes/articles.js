@@ -15,4 +15,6 @@ router.get("/:id", authenticator, articleController.one_article);
 //implemented
 router.post("/favorite", authenticator, articleController.favorite_article);
 
+router.post("/search", authenticator, articleController.search_articles);
+
 module.exports = router;
