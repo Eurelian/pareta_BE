@@ -199,6 +199,18 @@ exports.parent_favorite_article_list = async (req, res) => {
 	}
 };
 
+exports.parent_article_is_favorite = async (req, res) => {
+	try {
+		const { _id } = req.user;
+		const { id } = req.params;
+		const user = await Parent.findById(_id);
+		if (!user.articles_favorite.includes(id)) return res.send("");
+		if (user.articles_favorite.includes(id)) return res.send("Favorited");
+	} catch (err) {
+		res.send(err);
+	}
+};
+
 //implemented
 //PARENT DELETE FAVORITE ARTICLE FROM LIST
 exports.parent_favorite_article_remove = async (req, res) => {
@@ -210,7 +222,10 @@ exports.parent_favorite_article_remove = async (req, res) => {
 			$pullAll: { articles_favorite: [id] },
 		});
 
-		res.send("Article Removed from Favorites");
+		const favorite = await Parent.findById(_id, "articles_favorite").populate(
+			"articles_favorite"
+		);
+		res.send(favorite);
 	} catch (err) {
 		res.send(err);
 	}
