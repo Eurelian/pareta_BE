@@ -46,7 +46,7 @@ exports.favorite_article = async (req, res) => {
 		const isArticle = user.articles_favorite.filter(
 			(favorite_id) => favorite_id === article._id
 		);
-		if (isArticle) return res.send("Article already favorited");
+		if (isArticle.length < 1) return res.send("Article already favorited");
 
 		user.articles_favorite.push(article._id);
 		await user.save();
