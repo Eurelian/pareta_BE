@@ -16,7 +16,10 @@ exports.all_articles = async (req, res) => {
 exports.search_articles = async (req, res) => {
 	try {
 		const { query } = req.body;
-
+		if (!query) {
+			let allArticles = await Article.find({}).populate("author");
+			res.send(allArticles);
+		}
 		let articles = await Article.find({ $text: { $search: query } });
 		res.send(articles);
 	} catch (err) {
