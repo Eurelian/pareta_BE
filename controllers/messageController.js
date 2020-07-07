@@ -6,7 +6,7 @@ exports.message_sent = async (req, res) => {
 	try {
 		const { _id } = req.user;
 		const { id, text } = req.body;
-		if (!text) res.status(400).send("Message can't be blank");
+		if (!text) return res.status(400).send("Message can't be blank");
 
 		const user = await Parent.findById(id);
 		const sender = await Parent.findById(_id);

@@ -17,7 +17,7 @@ exports.parent_register = async (req, res) => {
 		const { name, email, password } = req.body;
 
 		const { error } = registerValidate.validate(req.body);
-		if (error) res.status(403).send(error.details[0].message);
+		if (error) return res.status(403).send(error.details[0].message);
 
 		const emailExist = await Parent.findOne({ email: email });
 		if (emailExist)
@@ -44,7 +44,7 @@ exports.parent_login = async (req, res) => {
 	const { email, password } = req.body;
 
 	const { error } = validation.validate(req.body);
-	if (error) res.status(403).send(error.details[0].message);
+	if (error) return res.status(403).send(error.details[0].message);
 
 	const user = await Parent.findOne({ email: email });
 	if (!user) return res.status(400).send("Wrong e-mail address.");
@@ -105,7 +105,7 @@ exports.favorite_parent = async (req, res) => {
 
 		if (sender.parents_favorite.includes(user._id))
 			return res.send("This parent is already in your Favorites List");
-		if (user._id == sender._id) return res.send("Can't message yourself");
+		if (user._id === sender._id) return res.send("Can't message yourself");
 
 		sender.parents_favorite.push(user._id);
 		await sender.save();
@@ -247,7 +247,7 @@ exports.parent_event_create = async (req, res) => {
 	const { _id } = req.user;
 	const { name, geometry, date, age_group, description, size } = req.body;
 	const { error } = await eventValidation.validate(req.body);
-	if (error) res.status(403).send(error.details[0].message);
+	if (error) return res.status(403).send(error.details[0].message);
 
 	try {
 		const user = await Parent.findById(_id);

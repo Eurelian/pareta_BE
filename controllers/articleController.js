@@ -18,7 +18,7 @@ exports.search_articles = async (req, res) => {
 		const { query } = req.body;
 		if (!query) {
 			let allArticles = await Article.find({}).populate("author");
-			res.send(allArticles);
+			return res.send(allArticles);
 		}
 		let articles = await Article.find({
 			$text: { $search: query, $caseSensitive: false },

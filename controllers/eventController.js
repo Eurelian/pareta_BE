@@ -39,11 +39,11 @@ exports.events_subscribe = async (req, res) => {
 		const event = await Event.findById(id);
 
 		if (user.events_subscribed.lenght > 7)
-			res
+			return res
 				.status(403)
 				.send("You can only attend a maximum of 8 events at a time");
 		if (event.attending.includes(user._id))
-			res.status(403).send("You are Already Subscribed to this Event.");
+			return res.status(403).send("You are Already Subscribed to this Event.");
 
 		event.attending.push(user._id);
 		user.events_subscribed.push(event._id);
@@ -53,10 +53,7 @@ exports.events_subscribe = async (req, res) => {
 		);
 		await event.save();
 		await user.save();
-		res.send(
-			subscribed
-			// `You are now Subscribed to ${event.name.slice(0, 30)}...`
-		);
+		res.send(subscribed);
 	} catch (err) {
 		res.send(err);
 	}
@@ -87,11 +84,11 @@ exports.search_events = async (req, res) => {
 		const { query } = req.body;
 		if (!query) {
 			let allEvents = await Event.find({}).populate("organizer");
-			res.send(allEvents);
+			return res.send(allEvents);
 		}
-		let events = await Event.find({ $text: { $search: query } }).populate(
-			"organizer"
-		);
+		let events = await Event.find({
+			$text: { $search: query, $caseSensitive: false },
+		}).populate("organizer");
 		res.send(events);
 	} catch (err) {
 		res.send(err);
